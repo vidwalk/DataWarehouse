@@ -1,3 +1,9 @@
+DELETE FROM [OrderSaleProcess].[dbo].[stage_dim_Customer]
+DELETE FROM [OrderSaleProcess].[dbo].[stage_dim_Employee]
+DELETE FROM [OrderSaleProcess].[dbo].[stage_dim_Supplier]
+DELETE FROM [OrderSaleProcess].[dbo].[stage_dim_Shipper]
+DELETE FROM [OrderSaleProcess].[dbo].[stage_dim_Product]
+
 INSERT INTO
 [OrderSaleProcess].[dbo].[stage_dim_Customer](
 [CustomerID]
