@@ -1,0 +1,21 @@
+use [northwindDimensional]
+
+INSERT INTO 
+ [dbo].[Stage_D_Product](
+  [ProductID]
+ ,[ProductName]
+ ,[UnitPrice]
+ ,[UnitsInStock]
+ ,[SupplierName]
+ ,[SupplierCity]
+ ,[CategoryName]
+ )
+ SELECT [northwindDB].[dbo].[Products].[ProductID], [northwindDB].[dbo].[Products].[ProductName],
+ [northwindDB].[dbo].[Products].[UnitPrice], [northwindDB].[dbo].[Products].[UnitsInStock],
+ [northwindDB].[dbo].[Suppliers].[CompanyName], [northwindDB].[dbo].[Suppliers].[City],
+ [northwindDB].[dbo].[Categories].[CategoryName]
+ FROM [northwindDB].[dbo].[Products]
+ JOIN [northwindDB].[dbo].[Suppliers] ON 
+ [northwindDB].[dbo].[Products].[SupplierID] = [northwindDB].[dbo].[Suppliers].[SupplierID]
+ JOIN [northwindDB].[dbo].[Categories] ON 
+ [northwindDB].[dbo].[Products].[CategoryID] = [northwindDB].[dbo].[Categories].[CategoryID]

@@ -1,6 +1,3 @@
--- Drop table
-
--- DROP TABLE OrderSaleProcess.dbo.temp_fact_order
 
 CREATE TABLE OrderSaleProcess.dbo.temp_fact_order (
 	C_ID int NULL,
@@ -14,6 +11,7 @@ CREATE TABLE OrderSaleProcess.dbo.temp_fact_order (
 	EmployeeID int NULL,
 	OrderDate datetime NULL,
 	ShipperID int NULL,
+	SupplierID int NULL,
 	Quantity smallint NULL,
 	SalesAmount money NULL,
 	Discount real NULL
