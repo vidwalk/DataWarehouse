@@ -6,7 +6,3 @@ UPDATE [temp_fact_order]
 SET P_ID = (SELECT P_ID from Product WHERE Product.ProductID = temp_fact_order.ProductID)
 UPDATE [temp_fact_order]
 SET D_ID = (SELECT DateID from Calendar WHERE Calendar.CalendarDate = temp_fact_order.OrderDate)
-UPDATE [temp_fact_order]
-SET SH_ID = (SELECT SH_ID from Shipper WHERE Shipper.ShipperID = temp_fact_order.ShipperID)
-UPDATE [temp_fact_order]
-SET SP_ID = (SELECT SP_ID from Supplier WHERE Supplier.SupplierID = temp_fact_order.SupplierID)

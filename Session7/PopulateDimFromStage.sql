@@ -29,12 +29,9 @@ INSERT INTO [dbo].[Product]
     ,[SupplierName]
 	FROM [stage_dim_Product]
 
-INSERT INTO [dbo].[Shipper]
-           ([ShipperID]
-           ,[CompanyName])
-	SELECT
-	[ShipperID]
-    ,[CompanyName]
-	FROM [stage_dim_Shipper]
-
-GO
+UPDATE Customer
+SET Customer.validFrom='01/01/1996',Customer.validTo = '12/31/1997'
+UPDATE Employee
+SET Employee.validFrom='01/01/1996',Employee.validTo = '12/31/1997'
+UPDATE Product
+SET Product.validFrom='01/01/1996',Product.validTo = '12/31/1997'
