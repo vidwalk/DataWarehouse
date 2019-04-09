@@ -1,0 +1,15 @@
+I  Initial
+1. SchemaOrderSaleProcess
+2. DateOrderSaleProcess(Use the part in which it fills the table)
+3. InitialLoad
+	a) populate stage
+	b) populate tempfactorder
+	c) populate dimensions
+4.UpdateTemporaryFactOrder
+5.Populate Final Fact Order
+II Incremental
+1. PopulateTempFactOrderIncremental
+2. PopulateStage
+3. FindAndUpdateDimensions
+4. UpdateTemporaryFactOrder
+5. Populate Final Fact Order

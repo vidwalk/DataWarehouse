@@ -4,7 +4,7 @@ GO
 
 ---update validTo if products have been deleted
 UPDATE OrderSaleProcess.dbo.stage_dim_Product
-SET validTo = '12/31/1997'
+SET validTo = DATEADD(DAY, -1, SELECT(MAX(CurrentValid) FROM OrderSaleProcess.dbo.Validator))
 WHERE ProductID IN (
 ---Getting the entries for yesterday in OrderSaleProcess
 (SELECT ProductID
@@ -60,7 +60,7 @@ FROM OrderSaleProcess.dbo.Product)
 )
 --Update the stage
 UPDATE OrderSaleProcess.dbo.stage_dim_Product
-SET validTo = '12/31/1997'
+SET validTo = DATEADD(DAY, -1, SELECT(MAX(CurrentValid) FROM OrderSaleProcess.dbo.Validator))
 WHERE ProductID IN 
 (SELECT ProductID
 FROM OrderSaleProcess.dbo.Product_changed)
@@ -73,7 +73,7 @@ SupplierName,
 validFrom,
 validTo
 )
-SELECT ProductID, ProductName, SupplierName,'01/01/1998','12/31/9999'
+SELECT ProductID, ProductName, SupplierName,SELECT(MAX(CurrentValid) FROM OrderSaleProcess.dbo.Validator),'12/31/9999'
 FROM OrderSaleProcess.dbo.Product_changed
 go 
 DROP TABLE OrderSaleProcess.dbo.Product_changed
@@ -90,7 +90,7 @@ validFrom,
 validTo
 )
 --find the added rows
-SELECT ProductID, ProductName, CompanyName,'01/01/1998','12/31/9999'
+SELECT ProductID, ProductName, CompanyName,SELECT(MAX(CurrentValid) FROM OrderSaleProcess.dbo.Validator),'12/31/9999'
 FROM Products
 JOIN Suppliers on Products.SupplierID = Suppliers.SupplierID
 WHERE ProductID IN 
@@ -113,7 +113,7 @@ GO
 
 ---update validTo based on deleted 
 UPDATE OrderSaleProcess.dbo.stage_dim_Employee
-SET validTo = '12/31/1997'
+SET validTo = DATEADD(DAY, -1, SELECT(MAX(CurrentValid) FROM OrderSaleProcess.dbo.Validator))
 WHERE EmployeeID IN (
 ---yesterday
 (SELECT EmployeeID
@@ -167,7 +167,7 @@ FROM OrderSaleProcess.dbo.Employee)
 )
 --Update the stage
 UPDATE OrderSaleProcess.dbo.stage_dim_Employee
-SET validTo = '12/31/1997'
+SET validTo = DATEADD(DAY, -1, SELECT(MAX(CurrentValid) FROM OrderSaleProcess.dbo.Validator))
 WHERE EmployeeID IN 
 (SELECT EmployeeID
 FROM OrderSaleProcess.dbo.Employee_changed)
@@ -180,7 +180,7 @@ FirstName,
 validFrom,
 validTo
 )
-SELECT EmployeeID, LastName, FirstName,'01/01/1998','12/31/9999'
+SELECT EmployeeID, LastName, FirstName,SELECT(MAX(CurrentValid) FROM OrderSaleProcess.dbo.Validator),'12/31/9999'
 FROM OrderSaleProcess.dbo.Employee_changed
 go 
 DROP TABLE OrderSaleProcess.dbo.Employee_changed
@@ -197,7 +197,7 @@ validFrom,
 validTo
 )
 --find the added rows
-SELECT EmployeeID, LastName, FirstName,'01/01/1998','12/31/9999'
+SELECT EmployeeID, LastName, FirstName,SELECT(MAX(CurrentValid) FROM OrderSaleProcess.dbo.Validator),'12/31/9999'
 FROM Employees
 WHERE EmployeeID IN 
 ((
@@ -219,7 +219,7 @@ GO
 
 ---update validTo based on deleted 
 UPDATE OrderSaleProcess.dbo.stage_dim_Customer
-SET validTo = '12/31/1997'
+SET validTo = DATEADD(DAY, -1, SELECT(MAX(CurrentValid) FROM OrderSaleProcess.dbo.Validator))
 WHERE CustomerID IN (
 ---yesterday
 (SELECT CustomerID
@@ -270,7 +270,7 @@ FROM OrderSaleProcess.dbo.Customer)
 )
 --Update the stage by setting validTo
 UPDATE OrderSaleProcess.dbo.stage_dim_Customer
-SET validTo = '12/31/1997'
+SET validTo = DATEADD(DAY, -1, SELECT(MAX(CurrentValid) FROM OrderSaleProcess.dbo.Validator))
 WHERE CustomerID IN 
 (SELECT CustomerID
 FROM OrderSaleProcess.dbo.Customer_changed)
@@ -282,7 +282,7 @@ Country,
 validFrom,
 validTo
 )
-SELECT CustomerID, Country,'01/01/1998','12/31/9999'
+SELECT CustomerID, Country,SELECT(MAX(CurrentValid) FROM OrderSaleProcess.dbo.Validator),'12/31/9999'
 FROM OrderSaleProcess.dbo.Customer_changed
 go 
 DROP TABLE OrderSaleProcess.dbo.Customer_changed
@@ -298,7 +298,7 @@ validFrom,
 validTo
 )
 --find the added rows
-SELECT CustomerID, Country,'01/01/1998','12/31/9999'
+SELECT CustomerID, Country,SELECT(MAX(CurrentValid) FROM OrderSaleProcess.dbo.Validator),'12/31/9999'
 FROM Customers
 WHERE CustomerID IN 
 ((

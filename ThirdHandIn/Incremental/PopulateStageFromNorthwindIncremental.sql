@@ -25,7 +25,7 @@ SELECT
 FROM [northwindDB].[dbo].[Employees]
 
 INSERT INTO 
- [dbo].[stage_dim_Product](
+ [OrderSaleProcess].[dbo].[stage_dim_Product](
   [ProductID]
  ,[ProductName]
  ,[SupplierName]
@@ -35,10 +35,10 @@ INSERT INTO
  FROM [northwindDB].[dbo].[Products]
  JOIN [northwindDB].[dbo].[Suppliers] ON 
  [northwindDB].[dbo].[Products].[SupplierID] = [northwindDB].[dbo].[Suppliers].[SupplierID]
- --Set the validfrom and validto 
-UPDATE state_dim_Customer
-SET state_dim_Customer.validFrom='01/01/1996',state_dim_Customer.validTo = '12/31/1997'
-UPDATE state_dim_Employee
-SET state_dim_Employee.validFrom='01/01/1996',state_dim_Employee.validTo = '12/31/1997'
-UPDATE Product
-SET state_dim_Product.validFrom='01/01/1996',state_dim_Product.validTo = '12/31/1997'
+ --Set the validfrom and validto with the current date in validator and a date in the future
+UPDATE [OrderSaleProcess].[dbo].[stage_dim_Customer]
+SET [OrderSaleProcess].[dbo].[stage_dim_Customer].validFrom=(SELECT MAX(CurrentValid) FROM OrderSaleProcess.dbo.Validator),[OrderSaleProcess].[dbo].[stage_dim_Customer].validTo = '12/31/1997'
+UPDATE [OrderSaleProcess].[dbo].[stage_dim_Employee]
+SET [OrderSaleProcess].[dbo].[stage_dim_Employee].validFrom=(SELECT MAX(CurrentValid) FROM OrderSaleProcess.dbo.Validator),[OrderSaleProcess].[dbo].[stage_dim_Employee].validTo = '12/31/1997'
+UPDATE [OrderSaleProcess].[dbo].[stage_dim_Product]
+SET [OrderSaleProcess].[dbo].[stage_dim_Product].validFrom=(SELECT MAX(CurrentValid) FROM OrderSaleProcess.dbo.Validator),[OrderSaleProcess].[dbo].[stage_dim_Product].validTo = '12/31/1997'

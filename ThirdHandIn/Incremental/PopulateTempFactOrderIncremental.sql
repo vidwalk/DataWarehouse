@@ -18,8 +18,8 @@ Join Customers on Orders.CustomerID=Customers.CustomerID
 Join Employees on Employees.EmployeeID= Orders.EmployeeID
 Join Products on Products.ProductID= [Order Details].ProductID
 --Retrieve the order up until 12/31/1997
-WHERE [Orders].OrderDate > SELECT(MAX(CurrentValid) FROM OrderSaleProcess.dbo.Validator)
+WHERE [Orders].OrderDate > (SELECT MAX(CurrentValid) FROM OrderSaleProcess.dbo.Validator)
 --Insert the value of the latest read into the Validator table which is made to keep track of the latest validTo
 INSERT INTO OrderSaleProcess.dbo.Validator
 (CurrentValid)
-VALUES(DATEADD(DAY, 1, SELECT(MAX(CurrentValid) FROM OrderSaleProcess.dbo.Validator)));
+VALUES(DATEADD(DAY, 1, (SELECT MAX(CurrentValid) FROM OrderSaleProcess.dbo.Validator)));

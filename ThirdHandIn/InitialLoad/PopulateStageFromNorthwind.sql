@@ -1,7 +1,7 @@
 DELETE FROM [OrderSaleProcess].[dbo].[stage_dim_Customer]
 DELETE FROM [OrderSaleProcess].[dbo].[stage_dim_Employee]
 DELETE FROM [OrderSaleProcess].[dbo].[stage_dim_Product]
-
+---Populate the stage with the entries from northwind database
 INSERT INTO
 [OrderSaleProcess].[dbo].[stage_dim_Customer](
 [CustomerID]
@@ -25,7 +25,7 @@ SELECT
 FROM [northwindDB].[dbo].[Employees]
 
 INSERT INTO 
- [dbo].[stage_dim_Product](
+ [OrderSaleProcess].[dbo].[stage_dim_Product](
   [ProductID]
  ,[ProductName]
  ,[SupplierName]
@@ -35,10 +35,10 @@ INSERT INTO
  FROM [northwindDB].[dbo].[Products]
  JOIN [northwindDB].[dbo].[Suppliers] ON 
  [northwindDB].[dbo].[Products].[SupplierID] = [northwindDB].[dbo].[Suppliers].[SupplierID]
- 
-UPDATE state_dim_Customer
-SET state_dim_Customer.validFrom=(DATEADD(DAY, 1, SELECT(MAX(CurrentValid) FROM OrderSaleProcess.dbo.Validator))),state_dim_Customer.validTo = '12/31/2099'
-UPDATE state_dim_Employee
-SET state_dim_Employee.validFrom=(DATEADD(DAY, 1, SELECT(MAX(CurrentValid) FROM OrderSaleProcess.dbo.Validator))),state_dim_Employee.validTo = '12/31/2099'
-UPDATE Product
-SET state_dim_Product.validFrom=(DATEADD(DAY, 1, SELECT(MAX(CurrentValid) FROM OrderSaleProcess.dbo.Validator))),state_dim_Product.validTo = '12/31/2099'
+ --Set the validfrom and validto 
+UPDATE [OrderSaleProcess].[dbo].[stage_dim_Customer]
+SET [OrderSaleProcess].[dbo].[stage_dim_Customer].validFrom='01/01/1996',[OrderSaleProcess].[dbo].[stage_dim_Customer].validTo = '12/31/1997'
+UPDATE [OrderSaleProcess].[dbo].[stage_dim_Employee]
+SET [OrderSaleProcess].[dbo].[stage_dim_Employee].validFrom='01/01/1996',[OrderSaleProcess].[dbo].[stage_dim_Employee].validTo = '12/31/1997'
+UPDATE [OrderSaleProcess].[dbo].[stage_dim_Product]
+SET [OrderSaleProcess].[dbo].[stage_dim_Product].validFrom='01/01/1996',[OrderSaleProcess].[dbo].[stage_dim_Product].validTo = '12/31/1997'
